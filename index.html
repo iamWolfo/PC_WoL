@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8fa" />
+    <title>Wakebase — Wake-on-LAN à distance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <main id="auth-view" class="auth-shell">
+      <section class="auth-visual" aria-label="Présentation de Wakebase">
+        <div class="brand brand-light"><span class="brand-mark"><i></i><i></i><i></i></span> wakebase</div>
+        <div class="visual-copy">
+          <p class="eyebrow">REMOTE ACCESS / 01</p>
+          <h1>Votre bureau,<br /><em>à portée de main.</em></h1>
+          <p>Réveillez vos machines et gardez votre parc personnel sous contrôle, où que vous soyez.</p>
+        </div>
+        <div class="network-art" aria-hidden="true">
+          <span class="node node-main"><i data-lucide="monitor"></i></span>
+          <span class="node node-router"><i data-lucide="router"></i></span>
+          <span class="node node-cloud"><i data-lucide="cloud"></i></span>
+          <span class="line line-a"></span><span class="line line-b"></span>
+        </div>
+        <div class="visual-foot"><span class="status-dot"></span> Tous les systèmes opérationnels <span>v2.4.0</span></div>
+      </section>
+      <section class="auth-panel">
+        <div class="auth-inner">
+          <div class="auth-top"><div class="brand"><span class="brand-mark"><i></i><i></i><i></i></span> wakebase</div><span class="secure-label"><i data-lucide="shield-check"></i> Connexion sécurisée</span></div>
+          <div class="auth-heading"><p class="eyebrow">BIENVENUE</p><h2>Content de vous revoir.</h2><p>Connectez-vous pour retrouver vos appareils et les réveiller à distance.</p></div>
+          <form id="login-form" class="form-stack">
+            <label for="email">Adresse e-mail</label>
+            <div class="input-wrap"><i data-lucide="mail"></i><input id="email" type="email" required autocomplete="email" /></div>
+            <label for="password">Mot de passe <a href="#" id="forgot-link">Mot de passe oublié&nbsp;?</a></label>
+            <div class="input-wrap"><i data-lucide="key-round"></i><input id="password" type="password" required autocomplete="current-password" /><button class="reveal-pass" type="button" aria-label="Afficher le mot de passe"><i data-lucide="eye"></i></button></div>
+            <button class="button button-dark button-wide" type="submit">Se connecter <i data-lucide="arrow-up-right"></i></button>
+          </form>
+          <p class="auth-switch">Pas encore de compte&nbsp;? <a href="#" id="signup-link">Créer un compte</a></p>
+          <p class="demo-note"><i data-lucide="shield-check"></i> Vos données sont enregistrées dans votre espace sécurisé</p>
+        </div>
+      </section>
+    </main>
+
+    <main id="app-view" class="app-shell hidden">
+      <aside class="sidebar">
+        <div class="sidebar-top"><div class="brand"><span class="brand-mark"><i></i><i></i><i></i></span> wakebase</div><button class="icon-button mobile-close" aria-label="Fermer le menu"><i data-lucide="x"></i></button></div>
+        <div class="workspace-switcher"><span class="avatar avatar-orange"></span><span><strong></strong><small>Espace personnel</small></span><i data-lucide="chevrons-up-down"></i></div>
+        <nav class="main-nav" aria-label="Navigation principale">
+          <p class="nav-label">Workspace</p>
+          <button class="nav-item active" data-view="overview"><i data-lucide="layout-dashboard"></i> Vue d’ensemble</button>
+          <button class="nav-item" data-view="devices"><i data-lucide="cpu"></i> Mes appareils <b id="device-count">3</b></button>
+          <button class="nav-item" data-view="routers"><i data-lucide="router"></i> Routeurs <b>2</b></button>
+          <p class="nav-label nav-label-spaced">Préférences</p>
+          <button class="nav-item" data-view="settings"><i data-lucide="sliders-horizontal"></i> Paramètres</button>
+          <button class="nav-item" data-view="activity"><i data-lucide="activity"></i> Journal d’activité</button>
+        </nav>
+        <div class="sidebar-bottom"><div class="help-box"><i data-lucide="life-buoy"></i><div><strong>Besoin d’aide&nbsp;?</strong><small>Consulter le centre d’aide</small></div><i class="help-arrow" data-lucide="arrow-up-right"></i></div><button id="logout-button" class="nav-item"><i data-lucide="log-out"></i> Se déconnecter</button><div class="version">WAKEBASE <span>v2.4.0</span></div></div>
+      </aside>
+      <section class="content-area">
+        <header class="topbar"><button class="icon-button menu-trigger" aria-label="Ouvrir le menu"><i data-lucide="menu"></i></button><div class="breadcrumb"><span>Workspace</span><i data-lucide="chevron-right"></i><strong id="page-title">Vue d’ensemble</strong></div><div class="top-actions"><button class="icon-button" id="notification-button" aria-label="Notifications"><i data-lucide="bell"></i><span class="notification-dot"></span></button><div class="top-avatar"></div></div></header>
+        <div class="page-content">
+          <section class="page-heading"><div><p class="eyebrow" id="today-label"></p><h2>Bonjour, <span id="welcome-name"></span> <span class="wave">✦</span></h2><p class="muted">Voici l’état de votre espace à cet instant.</p></div><button class="button button-dark" id="add-device-button"><i data-lucide="plus"></i> Ajouter un appareil</button></section>
+          <section class="stats-grid"><article class="stat-card"><div class="stat-icon stat-icon-blue"><i data-lucide="cpu"></i></div><div><span>Appareils enregistrés</span><strong id="total-devices">0</strong><small class="trend positive">Depuis votre espace</small></div></article><article class="stat-card"><div class="stat-icon stat-icon-green"><i data-lucide="wifi"></i></div><div><span>En ligne maintenant</span><strong id="online-devices">0</strong><small class="trend neutral">État observé</small></div></article><article class="stat-card"><div class="stat-icon stat-icon-yellow"><i data-lucide="zap"></i></div><div><span>Réveils enregistrés</span><strong id="wake-count">0</strong><small class="trend neutral">Depuis la création</small></div></article><article class="stat-card uptime-card"><div class="uptime-copy"><span>Disponibilité</span><strong id="availability">—</strong><small>Calculée avec vos événements</small></div><div class="mini-chart" id="availability-chart"></div></article></section>
+          <div class="dashboard-grid"><section class="panel devices-panel"><div class="panel-heading"><div><p class="eyebrow">VOTRE PARC</p><h3>Appareils</h3></div><button class="text-button" id="view-devices">Voir tout <i data-lucide="arrow-up-right"></i></button></div><div id="device-list" class="device-list"></div></section><section class="panel activity-panel"><div class="panel-heading"><div><p class="eyebrow">EN DIRECT</p><h3>Activité récente</h3></div><button class="icon-button subtle" id="clear-activity" aria-label="Effacer l'activité"><i data-lucide="more-horizontal"></i></button></div><div id="activity-list" class="activity-list"></div></section></div>
+          <section class="quick-section"><div class="section-heading"><div><p class="eyebrow">ACCÈS RAPIDE</p><h3>Vos routeurs</h3></div><button class="text-button" data-view-link="routers">Gérer les routeurs <i data-lucide="arrow-up-right"></i></button></div><div class="router-grid" id="router-grid"></div></section>
+          <section id="dynamic-screen" class="dynamic-screen hidden"></section>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="device-dialog" class="modal"><form method="dialog" id="device-form"><div class="modal-heading"><div><p class="eyebrow">NOUVEL ÉQUIPEMENT</p><h3>Ajouter un appareil</h3></div><button class="icon-button" value="cancel" aria-label="Fermer"><i data-lucide="x"></i></button></div><p class="modal-description">Renseignez les informations réseau de la machine à réveiller.</p><div class="form-grid"><div class="field full"><label for="device-name">Nom de l’appareil</label><input id="device-name" required placeholder="Ex. PC bureau" /></div><div class="field"><label for="device-mac">Adresse MAC</label><input id="device-mac" required placeholder="AA:BB:CC:DD:EE:FF" /></div><div class="field"><label for="device-ip">IP locale</label><input id="device-ip" required placeholder="192.168.1.42" /></div><div class="field"><label for="device-os">Système</label><input id="device-os" placeholder="Windows 11" /></div><div class="field full"><label for="device-router">Routeur associé</label><select id="device-router"></select></div></div><div class="modal-actions"><button class="button button-ghost" value="cancel">Annuler</button><button class="button button-dark" value="default">Ajouter l’appareil <i data-lucide="arrow-up-right"></i></button></div></form></dialog>
+    <dialog id="router-dialog" class="modal"><form method="dialog" id="router-form"><div class="modal-heading"><div><p class="eyebrow">INFRASTRUCTURE</p><h3>Ajouter un routeur</h3></div><button class="icon-button" value="cancel" aria-label="Fermer"><i data-lucide="x"></i></button></div><p class="modal-description">Ces informations servent à cibler le réseau local pour les paquets magiques.</p><div class="form-grid"><div class="field full"><label for="router-name">Nom du routeur</label><input id="router-name" required placeholder="Nom de votre routeur" /></div><div class="field"><label for="router-ip">IP du routeur</label><input id="router-ip" required placeholder="192.168.1.1" /></div><div class="field"><label for="router-broadcast">Adresse broadcast</label><input id="router-broadcast" placeholder="255.255.255.255" required /></div></div><div class="modal-actions"><button class="button button-ghost" value="cancel">Annuler</button><button class="button button-dark" value="default">Ajouter le routeur <i data-lucide="arrow-up-right"></i></button></div></form></dialog>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
